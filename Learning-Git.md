@@ -29,11 +29,11 @@ HEAD严格来说不是指向提交，而是指向master，master才是指向提�
 
 1. 创建分支  
 <font face = "Courier New"> `$ git checkout -b dev` </font>  
-`git checkout`命令加上`-b`参数表示创建分支并切换，相当于以下两条命令：
+`git checkout`命令加上`-b`参数表示创建分支并切换，相当于以下两条命令：  
 <font face = "Courier New"> `$ git branch dev` </font>
 <font face = "Courier New"> `$ git checkout dev` </font>
 2. 查看所有分支  
-<font face = "Courier New"> `$ git branch` </font>
+<font face = "Courier New"> `$ git branch` </font>  
 当前分支前面会标一个*
 3. 合并指定分支到当前分支  
 <font face = "Courier New"> `$ git merge [branch name]` </font>
@@ -60,7 +60,7 @@ Git鼓励使用分支完成某个任务，合并后再删掉分支，这和直�
 
 #### 强制禁用Fast-forward模式
 如果要强制禁用Fast-forward模式，Git就会在merge时生成一个新的commit，这样，从分支历史上就可以看出分支信息。  
-<font face = "Courier New"> `git merge --no-ff -m "[commit description]" [branch name]` </font>
+<font face = "Courier New"> `$ git merge --no-ff -m "[commit description]" [branch name]` </font>  
 其中， <font face = "Courier New"> `--no-ff` </font> 参数表示禁用Fast-forward模式
 
 #### 分支策略
