@@ -28,7 +28,7 @@ HEAD严格来说不是指向提交，而是指向master，master才是指向提�
 当我们创建新的分支，例如dev时，Git新建了一个指针叫dev，指向master相同的提交，再把HEAD指向dev，就表示当前分支在dev上。不过，从现在开始，对工作区的修改和提交就是针对dev分支了。
 
 1. 创建分支  
-<font face = "Courier New"> `$ git checkout -b dev` </font>
+<font face = "Courier New"> `$ git checkout -b dev` </font>  
 `git checkout`命令加上`-b`参数表示创建分支并切换，相当于以下两条命令：
 <font face = "Courier New"> `$ git branch dev` </font>
 <font face = "Courier New"> `$ git checkout dev` </font>
@@ -64,6 +64,6 @@ Git鼓励使用分支完成某个任务，合并后再删掉分支，这和直�
 其中， <font face = "Courier New"> `--no-ff` </font> 参数表示禁用Fast-forward模式
 
 #### 分支策略
-master分支应该是非常稳定的，也就是仅用来发布新版本，平时不能在上面干活；
-干活都在dev分支上，也就是说，dev分支是不稳定的，到某个时候，比如1.0版本发布时，再把dev分支合并到master上，在master分支发布1.0版本；
+master分支应该是非常稳定的，也就是仅用来发布新版本，平时不能在上面干活；  
+干活都在dev分支上，也就是说，dev分支是不稳定的，到某个时候，比如1.0版本发布时，再把dev分支合并到master上，在master分支发布1.0版本；  
 团队中每个人都在dev分支上干活，每个人都有自己的分支，时不时地往dev分支上合并就可以了。
