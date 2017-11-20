@@ -87,3 +87,5 @@ master分支应该是非常稳定的，也就是仅用来发布新版本，平�
 恢复工作现场的同时删除stash  
 3. 可以多次stash，恢复时先用 <font face = "Courier New"> `git stash list` </font> 查看，然后恢复指定stash，用命令：  
 <font face = "Courier New"> `$ git stash apply stash@{[number]}` </font>
+
+### Feature分支
