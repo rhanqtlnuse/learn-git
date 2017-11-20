@@ -89,3 +89,7 @@ master分支应该是非常稳定的，也就是仅用来发布新版本，平�
 <font face = "Courier New"> `$ git stash apply stash@{[number]}` </font>
 
 ### Feature分支
+强行销毁修改后未合并的分支，用命令：
+<font face = "Courier New"> `$ git branch -D [branch name]` </font>
+
+### 多人协作
