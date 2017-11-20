@@ -67,3 +67,23 @@ Git鼓励使用分支完成某个任务，合并后再删掉分支，这和直�
 master分支应该是非常稳定的，也就是仅用来发布新版本，平时不能在上面干活；  
 干活都在dev分支上，也就是说，dev分支是不稳定的，到某个时候，比如1.0版本发布时，再把dev分支合并到master上，在master分支发布1.0版本；  
 团队中每个人都在dev分支上干活，每个人都有自己的分支，时不时地往dev分支上合并就可以了。
+
+### Bug分支
+#### 存储工作现场
+如果需要修复工作中的bug，但当前的工作还未完成，就需要先将工作现场存储起来  
+
+用命令 <font face = "Courier New"> `git stash` </font> 将工作现场储藏起来，然后再用 <font face = "Courier New"> `git status` </font> 命令查看工作区，就是干净的（除非有未被Git管理的文件）
+
+可以用 <font face = "Courier New"> `git stash list` </font> 命令查看stash内容
+
+#### 恢复工作现场
+1. 方式一
+<font face = "Courier New"> `$ git stash apply` </font>  
+恢复工作现场，但stash内容并不删除  
+<font face = "Courier New"> `$ git stash drop` </font>  
+删除stash  
+2. 方式二
+<font face = "Courier New"> `$ git stash pop` </font>  
+恢复工作现场的同时删除stash  
+3. 可以多次stash，恢复时先用 <font face = "Courier New"> `git stash list` </font> 查看，然后恢复指定stash，用命令：  
+<font face = "Courier New"> `$ git stash apply stash@{[number]}` </font>
