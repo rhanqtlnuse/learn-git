@@ -93,3 +93,139 @@ master分支应该是非常稳定的，也就是仅用来发布新版本，平�
 <font face = "Courier New"> `$ git branch -D [branch name]` </font>
 
 ### 多人协作
+从远程仓库克隆时，实际上Git自动把本地的master分支和远程的master分支对应起来了，并且，远程仓库的默认名称是origin。
+
+要查看远程库的信息，用 <font face = "Courier New"> `git remote` </font> ，或者用<font face = "Courier New"> `git remote -v` </font> 查看更详细的信息，会显示可以推送和抓取的地址  
+
+#### 推送分支
+推送时，要指定本地分支，这样，Git就会把该分支推送到远程库对应的远程分支上：  
+<font face = "Courier New"> `$ git push origin [branch name]` </font>  
+
+本地分支并不一定全部推送到远端：
+1. master分支是主分支，因此要时刻与远程同步；
+2. dev分支是开发分支，团队所有成员都需要在上面工作，所以也需要与远程同步；
+3. bug分支只用于在本地修复bug，没必要推到远程；
+4. feature分支是否推到远程，取决于是否和团队其他成员合作在上面开发。
+
+#### 抓取分支
+从远程仓库克隆时，默认情况下只能看到master分支
+
+1. 如果要在dev分支上开发，就必须创建远程origin的dev分支到本地：  
+<font face = "Courier New"> `$ git checkout -b dev origin/dev` </font>
+2. 完成修改后，如果推送时产生冲突，需要进行pull：
+<font face = "Courier New"> `$ git pull` </font>  
+3. 如果pull失败，提示“no tracking information”，说明没有指定本地dev分支与远程origin/dev分支的链接，根据提示，设置dev和origin/dev的链接：  
+<font face = "Courier New"> `$ git branch --setupstream dev origin/dev` </font>
+
+## 标签管理
+发布一个版本时，我们通常先在版本库中打一个标签（tag），这样，就唯一确定了打标签时刻的版本。将来无论什么时候，取某个标签的版本，就是把那个打标签的时刻的历史版本取出来。所以，标签也是版本库的一个快照。
+
+Git的标签虽然是版本库的快照，但其实它就是指向某个commit的不可移动的指针，所以，创建和删除标签都是瞬间完成的。
+
+### 创建标签
+1. 创建标签时首先要切换到要打标签的分支下面
+2. 使用命令 <font face = "Courier New"> `git tag [tag name]` </font> 打标签
+3. 标签默认打在最新提交的commit上，如果要对历史版本打标签，首先要通过 <font face = "Courier New"> `git log` </font> 找到其commit id，然后，使用命令 <font face = "Courier New"> `git tag [tag name] [commit id]` </font> 打标签
+4. 创建带说明的标签：
+<font face = "Courier New"> `$ git tag -a [tag name] -m "[description]"` </font>
+5. 用私钥签名一个标签：
+<font face = "Courier New"> `$ git tag -s [tag name] -m "[description]" [secret key]` </font>
+> 用PGP签名的标签是不可伪造的，因为可以验证PGP签名。
+> 签名采用PGP签名，因此，必须首先安装gpg（GnuPG），如果没有找到gpg，或者没有gpg密钥对，就会报错。
+6. 查看所有标签：
+<font face = "Courier New"> `$ git tag` </font>
+7. 查看标签详细信息：  
+<font face = "Courier New"> `$ git show [tag name]` </font>
+
+### 操作标签
+1. 删除标签：
+<font face = "Courier New"> `$ git tag -d [tag name]` </font>
+因为创建的标签都只存储在本地，不会自动推送到远程。所以，打错的标签可以在本地安全删除。
+2. 将标签推送到远程仓库：
+推送一个：  
+<font face = "Courier New"> `$ git push origin [tag name]` </font>  
+推送全部：  
+<font face = "Courier New"> `$ git push origin --tags` </font>  
+3. 如果标签已经推送到远程仓库，删除标签：  
+先在本地删除：  
+<font face = "Courier New"> `$ git tag -d [tag name]` </font>  
+然后从远程删除：  
+<font face = "Courier New"> `$ git push origin :refs/tags/[tag name]` </font>
+
+## 使用GitHub
+fork其他人的项目之后，如果希望对方接受自己的修改，就发起pull request
+
+## 使用码云
+如果本地仓库已经关联了远端仓库，可以删除已有的远端库：
+<font face = "Courier New"> `$ git remote rm origin` </font>
+
+git允许本地库与多个远程仓库关联，首先要删除名为oigin的远程仓库，然后关联一个远程库：
+<font face = "Courier New"> `$ git remote add github [ssh/https]` </font>
+再关联另一个远程库：
+<font face = "Courier New"> `$ git remote add gitee [ssh/https]` </font>
+注意此时远程仓库的名称不再为origin，推送时也是用关联时的远程仓库名称：
+<font face = "Courier New"> `$ git push [remote-name] [branch-name]` </font>
+
+## 自定义Git
+### 忽略特殊文件
+在Git工作区的根目录下创建一个特殊的.gitignore文件，然后把要忽略的文件名填进去，Git就会自动忽略这些文件。
+
+不需要从头写.gitignore文件，GitHub已经为我们准备了各种配置文件，只需要组合一下就可以使用了：[github/gitignore](https://github.com/github/gitignore)
+
+忽略文件的原则是：
+1. 忽略操作系统自动生成的文件，比如缩略图等；
+2. 忽略编译生成的中间文件、可执行文件等，也就是如果一个文件是通过另一个文件自动生成的，那自动生成的文件就没必要放进版本库，比如Java编译产生的.class文件；
+3. 忽略你自己的带有敏感信息的配置文件，比如存放口令的配置文件。
+
+检验.gitignore的标准是git status命令是不是说working directory clean。
+
+如果想强制添加一个被.gitignore文件忽略的文件，使用<font face = "Courier New"> `-f` </font> ：
+<font face = "Courier New"> `$ git add -f [file-name]` </font>
+
+如果.gitignore可能写得有问题，需要找出来到底哪个规则写错了，可以用git check-ignore命令检查：<font face = "Courier New">
+`$ git check-ignore -v App.class` </font>
+
+.gitignore文件本身要放到版本库里，并且可以对.gitignore做版本管理
+
+### 配置别名
+为命令配置别名：<font face = "Courier New">
+`$ git config --global alias.[short] [command]` </font>  
+如果命令多于一个单词，则如下：<font face = "Courier New">
+`$ git config --global alias.[short] '[command]'` </font>
+
+使用 <font face = "Courier New">
+`git log -l` </font> 显示最近一次提交
+
+#### 配置文件
+配置Git的时候，加上--global是针对当前用户起作用的，如果不加，那只针对当前的仓库起作用。
+
+每个仓库的Git配置文件都放在.git/config文件中，当前用户的Git配置文件放在用户主目录下的一个隐藏文件.gitconfig中。别名就在 <font face = "Courier New"> `[alias]` </font> 后面。要删除别名，直接把对应的行删掉即可。
+
+### 搭建Git服务器
+搭建Git服务器需要一台运行Linux的机器，搭建步骤如下：
+1. 安装git
+2. 创建一个git用户，用来运行git服务 <font face = "Courier New">
+`$ sudo adduser git` </font>
+3. 创建证书登录
+收集所有需要登录的用户的公钥，即他们自己的id\_rsa.pub文件，把所有公钥导入到/home/git/.ssh/authorized\_keys文件里，一行一个。
+4. 初始化Git仓库
+先选定一个目录作为Git仓库，假定是/srv/sample.git，在/srv目录下输入命令：<font face = "Courier New">
+`$ sudo git init --bare sample.git` </font>
+Git就会创建一个裸仓库，裸仓库没有工作区，因为服务器上的Git仓库纯粹是为了共享，所以不让用户直接登录到服务器上去改工作区，并且服务器上的Git仓库通常都以.git结尾。然后，把owner改为git：
+<font face = "Courier New"> `$ sudo chown -R git:git sample.git` </font>
+5. 禁用shell登录
+出于安全考虑，第二步创建的git用户不允许登录shell，这可以通过编辑/etc/passwd文件完成。找到类似下面的一行：
+<font face = "Courier New"> `git:x:1001:1001:,,,:/home/git:/bin/bash` </font>
+改为：
+<font face = "Courier New"> `git:x:1001:1001:,,,:/home/git:/usr/bin/git-shell` </font>
+这样，git用户可以正常通过ssh使用git，但无法登录shell，因为我们为git用户指定的git-shell每次一登录就自动退出。
+6. 克隆远程仓库
+现在，可以通过git clone命令克隆远程仓库了，在各自的电脑上运行：
+<font face = "Courier New"> `$ git clone git@server:/srv/sample.git` </font>
+
+
+> #### 管理公钥
+> 如果团队规模小，可以将每个人的公钥放在服务器的/home/git/.ssh/authorized_keys中，但如果团队规模很大，就需要使用Gitosis来管理公钥。
+
+> #### 管理权限
+> 因为Git是为Linux源代码托管而开发的，所以Git也继承了开源社区的精神，不支持权限控制。不过，因为Git支持钩子（hook），所以，可以在服务器端编写一系列脚本来控制提交等操作，达到权限控制的目的。Gitolite就是这个工具。
