@@ -1,7 +1,73 @@
 # Git
 ---
-## 远程仓库
+## 安装Git
+安装完成后，还需要最后一步设置，在命令行输入：
+<font face = "Courier New"> `$ git config --global user.name "[Your Name]"` </font>
+<font face = "Courier New"> `$ git config --global user.email "[email@example.com]"` </font>
 
+## 创建版本库
+在Windows系统下，目录名最好不要出现中文
+
+初始化本地仓库：
+<font face = "Courier New"> `$ git init` </font>
+
+#### 把文件添加到版本库
+所有的版本控制系统都只能跟踪文本文件的改动
+
+1. 把文件添加到暂存区
+<font face = "Courier New"> `$ git add [file-name]` </font>
+`git add`命令可反复多次使用，添加多个文件
+2. 把暂存区文件提交到当前分支
+<font face = "Courier New"> `$ git commit -m [description]` </font>
+一次性将暂存区的所有文件都提交到当前分支
+
+## 时光机穿梭
+`git status`命令显示仓库当前的状态
+`git diff [file-name]`命令可以显示某个文件修改的内容（与本地仓库对比）
+
+### 版本回退
+`git log`命令显示提交的历史记录，可以加上`--pretty=oneline`参数使每条日志在一行中输出
+
+在Git中，用HEAD表示当前版本，上一个版本是HEAD\^，上上一个版本是HEAD\^\^，为了方便，可以写成HEAD~n，n表示往上n个版本
+
+版本回退：
+`$ git reset --hard [version/commit-id]`
+
+`git reflog`命令用来查看历史命令
+
+### 工作区和暂存区
+#### 工作区
+电脑里能看见的目录
+
+#### 版本库（repository）
+工作区有一个隐藏目录.git，这个不算工作区，而是Git的版本库。
+
+Git的版本库里存了很多东西，其中最重要的就是称为stage（或者叫index）的暂存区，还有Git为我们自动创建的第一个分支master，以及指向master的一个指针叫HEAD。
+
+### 管理修改
+Git跟踪并管理的是修改，而非文件。
+
+### 撤销修改
+撤销工作区的修改：
+`$ git checkout -- [file-name]`
+
+撤销修改有两种情况：
+一种是readme.txt自修改后还没有被放到暂存区，现在，撤销修改就回到和版本库一模一样的状态；  
+一种是readme.txt已经添加到暂存区后，又作了修改，现在，撤销修改就回到添加到暂存区后的状态。  
+总之，就是让这个文件回到最近一次add或commit时的状态。
+
+命令`git reset HEAD [file-name]`可以把暂存区的修改撤销掉（unstage），重新放回工作区
+
+### 删除文件
+首先在文件管理器中将文件删除，然后：
+1. 如果确实要从版本库中删除该文件：
+`$ git rm [file-name]`  
+`$ git commit -m "[description]"`
+2. 如果错删：
+`$ git checkout -- [file-name]`
+但是只能恢复文件到最新版本，而会丢失最近一次提交后修改的内容。
+
+## 远程仓库
 ### 准备工作
 详见：[GitHub - 创建并配置SSH key](https://help.github.com/articles/connecting-to-github-with-ssh/)
 
@@ -222,7 +288,6 @@ Git就会创建一个裸仓库，裸仓库没有工作区，因为服务器上�
 6. 克隆远程仓库
 现在，可以通过git clone命令克隆远程仓库了，在各自的电脑上运行：
 <font face = "Courier New"> `$ git clone git@server:/srv/sample.git` </font>
-
 
 > #### 管理公钥
 > 如果团队规模小，可以将每个人的公钥放在服务器的/home/git/.ssh/authorized_keys中，但如果团队规模很大，就需要使用Gitosis来管理公钥。
