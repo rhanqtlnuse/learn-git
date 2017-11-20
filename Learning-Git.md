@@ -7,12 +7,12 @@
 
 ### 添加远程库
 1. 首先要在GitHub上建立新的仓库
-2. 将本地仓库与远程库关联
+2. 将本地仓库与远程库关联  
 <font face = "Courier New"> `$ git remote add origin [ssh/https]` </font>
-3. 将本地库内容推送到远程库上（初次）
+3. 将本地库内容推送到远程库上（初次）  
 <font face = "Courier New"> `$ git push -u origin master` </font>
 其中`-u`参数是将本地的`master`分支与远程的`master`分支关联起来，可以简化后面推送和拉取操作的命令
-4. 推送
+4. 推送  
 <font face = "Courier New"> `$ git push origin master` </font>
 
 ### 从远程库克隆
@@ -27,17 +27,17 @@ HEAD严格来说不是指向提交，而是指向master，master才是指向提�
 
 当我们创建新的分支，例如dev时，Git新建了一个指针叫dev，指向master相同的提交，再把HEAD指向dev，就表示当前分支在dev上。不过，从现在开始，对工作区的修改和提交就是针对dev分支了。
 
-1. 创建分支
+1. 创建分支  
 <font face = "Courier New"> `$ git checkout -b dev` </font>
 `git checkout`命令加上`-b`参数表示创建分支并切换，相当于以下两条命令：
 <font face = "Courier New"> `$ git branch dev` </font>
 <font face = "Courier New"> `$ git checkout dev` </font>
-2. 查看所有分支
+2. 查看所有分支  
 <font face = "Courier New"> `$ git branch` </font>
 当前分支前面会标一个*
-3. 合并指定分支到当前分支
+3. 合并指定分支到当前分支  
 <font face = "Courier New"> `$ git merge [branch name]` </font>
-4. 删除分支
+4. 删除分支  
 <font face = "Courier New"> `$ git branch -d [branch name]` </font>
 
 Git鼓励使用分支完成某个任务，合并后再删掉分支，这和直接在master分支上工作效果是一样的，但过程更安全。
