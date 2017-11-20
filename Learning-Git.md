@@ -59,8 +59,8 @@ Git鼓励使用分支完成某个任务，合并后再删掉分支，这和直�
 通常，合并分支时，如果可能，Git会用Fast-forward模式，但这种模式下，删除分支后，会丢掉分支信息。
 
 #### 强制禁用Fast-forward模式
-如果要强制禁用Fast-forward模式，Git就会在merge时生成一个新的commit，这样，从分支历史上就可以看出分支信息。
-<font face = "Courier New"> `$ git merge --no-ff -m "[commit description]" [branch name]` </font>
+如果要强制禁用Fast-forward模式，Git就会在merge时生成一个新的commit，这样，从分支历史上就可以看出分支信息。  
+<font face = "Courier New"> `git merge --no-ff -m "[commit description]" [branch name]` </font>
 其中， <font face = "Courier New"> `--no-ff` </font> 参数表示禁用Fast-forward模式
 
 #### 分支策略
