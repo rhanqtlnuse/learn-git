@@ -80,6 +80,11 @@ Git跟踪并管理的是修改，而非文件。
 其中`-u`参数是将本地的`master`分支与远程的`master`分支关联起来，可以简化后面推送和拉取操作的命令
 4. 推送  
 <font face = "Courier New"> `$ git push origin master` </font>
+5. 如果关联远程库时报错：
+`fatal: 远程origin已存在`
+则如下处理：
+`$ git remote rm origin`
+然后再关联
 
 ### 从远程库克隆
 <font face = "Courier New"> `$ git clone [ssh/https]` </font>
