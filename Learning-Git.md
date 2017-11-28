@@ -92,7 +92,8 @@ Git跟踪并管理的是修改，而非文件。
 > Git支持多种协议，包括https，但通过ssh支持的原生git协议速度最快。
 
 ### 删除远程仓库的文件
-`$ git rm --cached [filename]`
+`$ git rm --cached [filename]`  
+`$ git commit -m "[description]"`
 
 ## 分支管理
 
