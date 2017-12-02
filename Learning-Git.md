@@ -92,11 +92,11 @@ Git跟踪并管理的是修改，而非文件。
 > Git支持多种协议，包括https，但通过ssh支持的原生git协议速度最快。
 
 如果从远程仓库克隆时报出如下错误：  
-`Permission denied (publickey).  
-fatal: Could not read from remote repository.  
+`Permission denied (publickey).`
+`fatal: Could not read from remote repository.`
 
-Please make sure you have the correct access rights  
-and the repository exists.`  
+`Please make sure you have the correct access rights`
+`and the repository exists.`
 说明GitHub不能认证本机，需要进行如下检查：  
 1. 是否在本机生成SSH Key
 `$ cd ~/.ssh`
