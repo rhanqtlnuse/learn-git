@@ -1,9 +1,30 @@
 # Git
----
+
+## 基本概念
+
+### Git 是一个分布式版本控制系统
+
+#### 何谓“版本控制”？
+
+所谓版本控制，在我看来最重要的是提供一个历史记录，可以会滚到曾经的某个点。当然你可以说这个可以手动维护，不过这不符合我们的职业。
+
+#### 何谓“分布式”？
+
+所谓“分布式”，就是没有一个中央“权威”，每台主机上都有仓库的一份拷贝。
+
+这里面就有一个最重要的问题（分布式系统中）：冲突。Git 采用乐观并发控制的方式，先修改，如果发生冲突，再人为介入。
+
 ## 安装Git
+
 安装完成后，还需要最后一步设置，在命令行输入：
-<font face = "Courier New"> `$ git config --global user.name "[Your Name]"` </font>
-<font face = "Courier New"> `$ git config --global user.email "[email@example.com]"` </font>
+
+```
+$ git config --global user.name "[Your Name]"
+```
+
+```
+$ git config --global user.email "[email@example.com]"
+```
 
 ## 创建版本库
 在Windows系统下，目录名最好不要出现中文
